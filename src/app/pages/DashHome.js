@@ -36,7 +36,7 @@ export default function DashHome() {
                         </div>
                     </Link>
                 </DashCard>
-                <DashCard className="dash-card" variant="primary">
+                <DashCard className="dash-card" variant="secondary">
                     <Link to={`${url}/photos`}>
                         <div className="dash-card-content">
                             <Typography variant="h4">Photos</Typography>

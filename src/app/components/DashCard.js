@@ -6,26 +6,22 @@ export default function DashCard(props) {
     const { className, variant, children } = props;
 
     let backColor = "#119DFD";
-    let hoverColor = 'rgb(11, 109, 177)';
+    let hoverColor = '#0b6db11a';
     if (variant === "secondary") {
         backColor = '#FF03A5';
-        hoverColor = 'rgb(178, 2, 115)';
+        hoverColor = '#b2027342';
     } else if (variant === "primary-light") {
         backColor = 'rgba(17, 157, 253, 0.25)';
-        hoverColor = '#119DFD';
+        hoverColor = '#0b6db11a';
     } else if (variant === "secondary-light") {
         backColor = '#FF03A518';
-        hoverColor = '#FF03A5';
+        hoverColor = '#b2027342';
     }
 
-    let color = "#fff";
-    if (variant.indexOf('light') !== -1) {
-        color = "#333";
-    }
-
-    const classes = useStyles(backColor, color, hoverColor)();
+    const classes = useStyles(backColor, hoverColor)();
     return (
         <Card className={`${classes.container} ${className}`}>
+            <span className={classes.colorBanner} />
             {children}
         </Card>
     )
@@ -38,14 +34,26 @@ DashCard.propTypes = {
     children: PropTypes.element,
 }
 
-const useStyles = (backColor, color, hoverColor) => makeStyles({
+const useStyles = (backColor, hoverColor) => makeStyles({
     container: {
-        backgroundColor: backColor,
-        color: color,
+        color: '#444',
         transition: "background .2s",
+        position: 'relative',
+        overflow: 'hidden',
         "&:hover": {
             backgroundColor: hoverColor,
-            color: "#fff"
-        }
+        },
+        "& > a": {
+            display: 'block',
+            height: '100%',
+        },
+    },
+    colorBanner: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 7,
+        backgroundColor: backColor
     }
 });

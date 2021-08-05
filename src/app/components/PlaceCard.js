@@ -56,9 +56,6 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 10,
-        [theme.breakpoints.down('xs')]: {
-            maxWidth: '100%',
-        }
     },
     body: {
         padding: 10,
