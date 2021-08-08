@@ -15,7 +15,7 @@ import SinglePlace from './SinglePlace';
 
 import { getPlacesCount } from '../redux/slices/places';
 import { getphotosCount } from '../redux/slices/photos';
-import { getCategoriesCount } from '../redux/slices/category';
+import { getCategoriesCount, getCategories } from '../redux/slices/category';
 
 export default function Home() {
     const match = useRouteMatch();
@@ -37,6 +37,7 @@ export default function Home() {
         dispatch(getPlacesCount());
         dispatch(getphotosCount());
         dispatch(getCategoriesCount());
+        dispatch(getCategories());
     }, [dispatch]);
     return (
         <div className="main_container">

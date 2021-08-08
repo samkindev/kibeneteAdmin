@@ -12,6 +12,8 @@ import { createPhoto, getRequestStatus as getPhotoRequestStatus } from '../redux
 import { getAllCat } from '../redux/slices/category';
 import { placeValidators } from '../customeFunctions/validators';
 
+import { getLocation } from '../customeFunctions/geolocation';
+
 export default function SinglePlace() {
     const { placeId } = useParams();
     const place = useSelector(state => {
@@ -345,6 +347,9 @@ const useStyles = makeStyles(theme => ({
         width: 'fit-content',
         marginTop: 5
     },
+    form: {
+        position: 'relative',
+    },
     [theme.breakpoints.down('sm')]: {
         contentContainer: {
             paddingRight: 0,
@@ -368,6 +373,12 @@ const useStyles = makeStyles(theme => ({
         position: 'absolute',
         top: 10,
         right: 10,
+    },
+    loader: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
     }
 }));
 
@@ -379,6 +390,7 @@ const DisplayCoords = ({ currentPlace }) => {
     const [lat, setLat] = useState(coords[1]);
     const [error, setError] = useState(false);
     const [reqStatus, setReqStatus] = useState('idle');
+    const [loadingPosition, setLoadingPosition] = useState(false);
 
 
     const openModif = () => {
@@ -419,6 +431,26 @@ const DisplayCoords = ({ currentPlace }) => {
                     setModif(false);
                 });
         }
+    };
+
+    const handleGetposition = () => {
+        setLoadingPosition(true);
+        getLocation((err, position) => {
+            let error = err;
+            if (err) {
+                if (err.startsWith("Network location provider at")) {
+                    error = "Problème de connexion. Veuillez verifier votre connexion.";
+                } else if (err.startsWith("User denied")) {
+                    error = "Veuiller autoriser ce site web d'acceder à la géolocalisation avant de continuer.";
+                }
+                setError(error);
+            } else {
+                setLon(position.coords.longitude.toString());
+                setLat(position.coords.latitude.toString());
+                setError(null);
+            }
+            setLoadingPosition(false);
+        });
     };
 
     const classes = useStyles();
@@ -486,6 +518,18 @@ const DisplayCoords = ({ currentPlace }) => {
                                     variant="outlined"
                                     labelVariant="body2"
                                 />
+                                <Button
+                                    className={classes.dataCardAction}
+                                    onClick={handleGetposition}
+                                    variant="outlined"
+                                >
+                                    Position actuele
+                                </Button>
+                                {loadingPosition &&
+                                    <div className={classes.loader}>
+                                        <CircularProgress size={20} />
+                                    </div>
+                                }
                             </div>
                         </FormContainer>
                     </div>
@@ -560,7 +604,7 @@ const DataWithSelect = ({ currentPlace, currentData, name, label, title, options
                         />
                         {error && <Typography color="error" variant="caption">{error}</Typography>}
                     </div> :
-                    <Typography variant="caption">
+                    <Typography variant="caption" style={{ textTransform: 'capitalize' }}>
                         {currentData}
                     </Typography>
                 }

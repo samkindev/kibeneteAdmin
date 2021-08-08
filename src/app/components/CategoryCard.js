@@ -36,10 +36,12 @@ const CategoryCard = ({ data: category }) => {
                     >Modifier</Button>
                     {modify &&
                         <Modal open={modify} handleClose={onModify}>
-                            <CategoryModifForm
-                                category={category}
-                                closeHandler={onModify}
-                            />
+                            <div className={classes.modalContent}>
+                                <CategoryModifForm
+                                    category={category}
+                                    closeHandler={onModify}
+                                />
+                            </div>
                         </Modal>
                     }
                 </div>
@@ -53,7 +55,7 @@ CategoryCard.propTypes = {
 }
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     container: {
         height: 130,
     },
@@ -72,7 +74,19 @@ const useStyles = makeStyles({
     footer: {
         flex: 1,
         display: 'flex'
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        padding: 10
+    },
+    [theme.breakpoints.down('xs')]: {
+        modalContent: {
+            height: '100%',
+            width: '100%',
+            borderRadius: 0
+        }
     }
-});
+}));
 
 export default CategoryCard;
