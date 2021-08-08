@@ -46,7 +46,7 @@ const FormGroup = (props) => {
                 inputRef={inputRef}
                 size="medium"
                 multiline={multiline}
-                rowsMax={rowsMax}
+                maxRows={rowsMax}
                 fullWidth={fullWidth}
                 name={name}
                 type={type}

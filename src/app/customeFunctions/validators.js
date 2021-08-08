@@ -111,7 +111,7 @@ const validateNames = (name, shortName) => {
 
     if (shortName.length > name.length || name.length > 100) {
         valid = false;
-        error.shortName = "Cette valeur doit être infereir au nom complet";
+        error.shortName = "La longueur du nom court doit être inférieure à la longueur du nom complet";
     }
 
     return { valid, error };

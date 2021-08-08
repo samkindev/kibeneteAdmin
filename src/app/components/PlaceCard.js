@@ -17,7 +17,7 @@ const PlaceCard = ({ data: place }) => {
                         </div>
                         <div>
                             <Typography variant="body1" className={classes.title}>{place.name}</Typography>
-                            <Typography variant="caption">{place.category}</Typography>
+                            <Typography variant="caption">{place.category.name}</Typography>
                         </div>
                     </div>
                 </div>

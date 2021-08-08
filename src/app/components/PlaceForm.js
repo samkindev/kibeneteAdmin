@@ -378,6 +378,8 @@ const PlaceForm = (props) => {
                                 id="short_name"
                                 placeholder="Nom court"
                                 type="text"
+                                error={errors.shortName ? true : false}
+                                helperText={errors.shortName}
                                 fullWidth={true}
                                 onChange={(e) => setShortName(e.target.value)}
                                 value={shortName}

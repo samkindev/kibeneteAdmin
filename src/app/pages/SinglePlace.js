@@ -143,7 +143,7 @@ export default function SinglePlace() {
                         <div className={classes.dataCardsContainer}>
                             <DisplayCoords currentPlace={currentPlace} />
                             <DataWithSelect
-                                currentData={currentPlace.category}
+                                currentData={currentPlace.category.name}
                                 title="Catégorie"
                                 label="Selectionnez une catégorie"
                                 currentPlace={currentPlace}
