@@ -18,7 +18,6 @@ export default function Places() {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log(places);
         if (places.length === 0) {
             dispatch(getPlaces());
         }
